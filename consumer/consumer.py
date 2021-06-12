@@ -4,15 +4,16 @@ import json
 import mariadb
 import sys
 from data import *
-from statistics import mean 
+from statistics import mean
+import os 
 
 #Utworzenie połączenia do bazy danych
 try:
    conn = mariadb.connect(
-      user=DB_USER,
-      password=DB_PASS,
-      host=DB_HOST,
-      port=DB_PORT)
+      user=os.environ.get('DB_USER'),
+      password=os.environ.get('DB_PASS'),
+      host=os.environ.get('DB_HOST'),
+      port=int(os.environ.get('DB_PORT')))
 except mariadb.Error as e:
    print(f"Error connecting to MariaDB Platform: {e}")
    sys.exit(1)
