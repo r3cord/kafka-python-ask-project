@@ -10,23 +10,23 @@ Aby uruchomić aplikację porzebujemy:
 W celu uruchomienia aplikacji należy pobrać ją do swojego katalogu. Następnie w pliku [docker-compose.yml](https://github.com/r3cord/kafka-python-ask-project/blob/main/docker-compose.yml) edytujemy /home/daniel/ASK2/ przy volumes na własną ścieżkę, w której chcemy zapisywać bazę danych.
 
 Następnie przechodzimy do katalogu [consumer](https://github.com/r3cord/kafka-python-ask-project/tree/main/consumer) i budujemy obraz dla Dockera. Robimy to poleceniem:
-```bash
+```shell
 sudo docker build -t python-consumer:1 .
 ```
 Kolejnym krokiem jest zbudowanie obrazu producera. Robimy to w katalogu [producer](https://github.com/r3cord/kafka-python-ask-project/tree/main/producer) poleceniem:
-```bash
+```shell
 sudo docker build -t python-producer:1 .
 ```
 
 Teraz przed samym uruchomieniem aplikacji musimy utworzyć bazę danych. Możemy zrobić to w następujący sposób:
 Najpierw uruchamiamy kontener z bazą danych 
-```bash
+```shell
 sudo docker run --name mariadb -v /home/daniel/ASK2/:/var/lib/mysql -e 
 MARIADB_ROOT_PASSWORD=Zaq12wsx -d mariadb 
 ```
 Ścieżkę „/home/daniel/ASK2/” zamieniamy na taką samą jaką ustawiliśmy w pliku [docker-compose.yml](https://github.com/r3cord/kafka-python-ask-project/blob/main/docker-compose.yml).
 Następnie logujemy się do bazy danych poleceniem: 
-```bash
+```shell
 sudo docker exec -it mariadb mysql -u root -p 
 ```
 Wpisujemy hasło „Zaq12wsx” 
@@ -50,12 +50,12 @@ Wychodzimy z bazy danych i kontenera wpisując exit (czasami trzeba wpisać dwa 
 
 Usuwamy kontener z serwerem bazy danych, ale dzięki volumenowi baza danych zostanie 
 przechowana i wykorzystana w naszej aplikacji. 
-```bash
+```shell
 sudo docker rm -f mariadb 
 ```
 
 Teraz możemy odpalić naszą aplikację poleceniem znajdując się w katalogu głównym aplikacji: 
-```bash
+```shell
 sudo docker-compose up 
 ```
 
